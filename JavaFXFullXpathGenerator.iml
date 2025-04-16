@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://C:/javafx-sdk-21/lib/javafx-sdk-24.0.1/lib" />
+          <root url="file://C:/Users" />
+        </CLASSES>
+        <JAVADOC />
+        <NATIVE>
+          <root url="file://C:/javafx-sdk-21/lib/javafx-sdk-24.0.1/bin" />
+        </NATIVE>
+        <SOURCES>
+          <root url="file://$USER_HOME$/.vscode/extensions/vscjava.vscode-java-dependency-0.21.2/templates/invisible-project/src" />
+          <root url="file://$USER_HOME$/.vscode/extensions/vscjava.vscode-maven-0.40.4/resources/maven-wrapper/.mvn/wrapper" />
+          <root url="file://$USER_HOME$/AppData/Local/Continuum/anaconda3/Lib/site-packages/spyder/utils/tests/data" />
+          <root url="file://$USER_HOME$/AppData/Local/Continuum/anaconda3/pkgs/spyder-3.3.6-py37_0/Lib/site-packages/spyder/utils/tests/data" />
+          <root url="file://$USER_HOME$/Downloads/demo/demo/src/main/java" />
+          <root url="file://$USER_HOME$/Downloads/demo/demo/src/test/java" />
+          <root url="file://$USER_HOME$/IdeaProjects/Test/src" />
+          <root url="jar://C:/javafx-sdk-21/lib/javafx-sdk-24.0.1/src.zip!/javafx.base" />
+          <root url="jar://C:/javafx-sdk-21/lib/javafx-sdk-24.0.1/src.zip!/javafx.controls" />
+          <root url="jar://C:/javafx-sdk-21/lib/javafx-sdk-24.0.1/src.zip!/javafx.fxml" />
+          <root url="jar://C:/javafx-sdk-21/lib/javafx-sdk-24.0.1/src.zip!/javafx.graphics" />
+          <root url="jar://C:/javafx-sdk-21/lib/javafx-sdk-24.0.1/src.zip!/javafx.media" />
+          <root url="jar://C:/javafx-sdk-21/lib/javafx-sdk-24.0.1/src.zip!/javafx.swing" />
+          <root url="jar://C:/javafx-sdk-21/lib/javafx-sdk-24.0.1/src.zip!/javafx.web" />
+          <root url="jar://C:/javafx-sdk-21/lib/javafx-sdk-24.0.1/src.zip!/jdk.jsobject" />
+          <root url="jar://C:/javafx-sdk-21/lib/javafx-sdk-24.0.1/src.zip!/jfx.incubator.input" />
+          <root url="jar://C:/javafx-sdk-21/lib/javafx-sdk-24.0.1/src.zip!/jfx.incubator.richtext" />
+        </SOURCES>
+        <jarDirectory url="file://C:/javafx-sdk-21/lib/javafx-sdk-24.0.1/lib" recursive="false" />
+      </library>
+    </orderEntry>
+  </component>
+</module>
