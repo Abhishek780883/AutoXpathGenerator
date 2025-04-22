@@ -6,7 +6,7 @@
     }
 );*/
 
-function start() {
+/*function start() {
     var allElements = ["input", "select", "textarea", "button", "a","div"];
 
     for (j = 0; j < allElements.length; j++) {
@@ -293,7 +293,196 @@ function element_getBytext(elementtype, elemt) {
 }
     
     }
-}
+}*/
+
+
+function isVisible(el) {
+
+          const style = window.getComputedStyle(el);
+
+          return style.display !== "none" && style.visibility !== "hidden" && el.offsetParent !== null;
+
+        }
+
+        function normalizeText(el) {
+
+          return el?.textContent?.trim()?.replace(/\s+/g, " ") || "";
+
+        }
+
+        function buildXPath(el) {
+         const tag = el.tagName.toLowerCase();
+         // 1. Attribute-based
+         const attrs = ["id", "name", "placeholder", "data-test-id", "aria-label", "formcontrolname"];
+         for (let attr of attrs) {
+           if (el.hasAttribute(attr)) {
+             const val = el.getAttribute(attr);
+             if (val) return [`//${tag}[@${attr}="${val}"]`];
+           }
+         }
+         // 2. Direct text
+         const directText = normalizeText(el);
+         if (directText) {
+           return [`//${tag}[text()="${directText}"]`];
+         }
+         // 3. Look for nested tags with exact text
+         const candidates = el.querySelectorAll("p, span, strong, label");
+         for (let child of candidates) {
+           const text = normalizeText(child);
+           if (text) {
+             const childTag = child.tagName.toLowerCase();
+             return [`//${childTag}[text()="${text}"]/parent::${tag}`];
+           }
+         }
+         // 4. Fallback: first class name
+         const cls = el.className?.trim()?.split(/\s+/)[0];
+         if (cls) {
+           return [`//${tag}[contains(@class,"${cls}")]`];
+         }
+         return [];
+        }
+
+        function createXPathLabel(xpath) {
+
+          const div = document.createElement("div");
+
+          div.textContent = xpath;
+
+          div.style.cssText = `
+
+            display: inline-block;
+
+            margin: 4px 0;
+
+            padding: 4px 6px;
+
+            max-width: 90%;
+
+            font-size: 12px;
+
+            font-family: monospace;
+
+            background-color: #f1fdf2;
+
+            color: #006400;
+
+            border: 1px solid #b6e2c5;
+
+            border-radius: 4px;
+
+            word-break: break-word;
+
+            overflow-wrap: anywhere;
+
+            cursor: pointer;
+
+          `;
+
+          div.onclick = () => {
+
+            const r = document.createRange();
+
+            r.selectNode(div);
+
+            window.getSelection().removeAllRanges();
+
+            window.getSelection().addRange(r);
+
+            document.execCommand("copy");
+
+            window.getSelection().removeAllRanges();
+
+            div.style.backgroundColor = "#ffe58f";
+
+          };
+
+          return div;
+
+        }
+
+        function insertXPathChips(el, xpathList) {
+
+          xpathList.forEach((xp) => {
+
+            const chip = createXPathLabel(xp);
+
+            el.insertAdjacentElement("afterend", chip);
+
+          });
+
+        }
+
+        function getInteractableSelector() {
+
+          return `
+
+            input:not([type="hidden"]),
+
+            select,
+
+            textarea,
+
+            button,
+
+            a[href],
+
+            div[role="button"],
+
+            div[contenteditable="true"]
+
+          `;
+
+        }
+
+        function start() {
+
+          document.querySelectorAll(getInteractableSelector()).forEach((el) => {
+
+            if (!isVisible(el)) return;
+
+            const tag = el.tagName.toLowerCase();
+
+            // Handle nested elements like <button><p>Text</p></button>
+
+            if (["div", "a", "button"].includes(tag)) {
+
+              const innerText = normalizeText(el);
+
+              if (innerText) {
+
+                const xp = `//${tag}[.//text()[contains(.,"${innerText}")]]`;
+
+                insertXPathChips(el, [xp]);
+
+                return;
+
+              }
+
+            }
+
+            const xpaths = buildXPath(el);
+
+            if (xpaths.length > 0) {
+
+              insertXPathChips(el, xpaths);
+
+            }
+
+          });
+
+        }
+
+        // Chrome extension compatibility (optional)
+
+        if (window.chrome && chrome.runtime && chrome.runtime.onMessage) {
+
+          chrome.runtime.onMessage.addListener((req, snd, resp) => {
+
+            if (req.message === "start") start();
+
+          });
+
+        }
 
 
 
